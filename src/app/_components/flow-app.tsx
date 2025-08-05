@@ -5,6 +5,9 @@ import {
   applyNodeChanges,
   applyEdgeChanges,
   addEdge,
+  type NodeChange,
+  type EdgeChange,
+  type Connection,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
@@ -19,17 +22,23 @@ export const FlowApp = () => {
   const [edges, setEdges] = useState(initialEdges);
 
   const onNodesChange = useCallback(
-    (changes) =>
-      setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
+    (
+      changes: NodeChange<{
+        id: string;
+        position: { x: number; y: number };
+        data: { label: string };
+      }>[],
+    ) => setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
     [],
   );
   const onEdgesChange = useCallback(
-    (changes) =>
+    (changes: EdgeChange<{ id: string; source: string; target: string }>[]) =>
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
     [],
   );
   const onConnect = useCallback(
-    (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
+    (params: Connection) =>
+      setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
   );
 
