@@ -96,6 +96,8 @@ const initialEdges: CustomEdge[] = [
     id: "n1-n2",
     source: "n1",
     target: "n2",
+    sourceHandle: null,
+    targetHandle: null,
     type: "custom",
     data: { label: "Edge 1", icons: ["mail", "message", "phone"] },
   },
@@ -131,7 +133,7 @@ export const FlowApp = () => {
 
   return (
     <div
-      style={{ width: "100vw", height: "100vh" }}
+      style={{ width: "calc(100vw - var(--sidebar-width))", height: "100vh" }}
       className="relative shadow-sm"
     >
       <ReactFlow

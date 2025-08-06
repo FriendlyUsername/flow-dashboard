@@ -13,8 +13,14 @@ import {
 
 // import data from "./data.json";
 import { FlowApp } from "../_components/flow-app";
-import { ChevronLeft } from "lucide-react";
+import {
+  ChevronLeft,
+  CloudLightning,
+  RefreshCcw,
+  Settings,
+} from "lucide-react";
 import { Separator } from "~/components/ui/separator";
+import { Button } from "~/components/ui/button";
 
 export default function Page() {
   return (
@@ -29,9 +35,9 @@ export default function Page() {
       <AppSidebar variant="inset" />
 
       <SidebarInset>
-        <div className="bg-sidebar flex h-10 items-center justify-between shadow-none">
-          <div>
-            <SideBarReOpen />
+        <div className="bg-sidebar flex h-10 items-center justify-between pr-2 shadow-none">
+          <SideBarReOpen />
+          <div className="flex w-full justify-between">
             <div className="flex">
               <ChevronLeft />
               <span>Flow</span>
@@ -40,6 +46,23 @@ export default function Page() {
                 className="mx-1 h-10 bg-black"
               />
               <div>Version 1.0 split A</div>
+            </div>
+            <div>
+              <Button variant="outline">
+                <CloudLightning />
+                Triggers
+              </Button>
+              <Button variant="outline">
+                <Settings />
+                Settings
+              </Button>
+              <Button variant="outline">
+                <RefreshCcw />
+                Evaluate
+              </Button>
+            </div>
+            <div>
+              <Button variant="outline">Publish</Button>
             </div>
           </div>
         </div>

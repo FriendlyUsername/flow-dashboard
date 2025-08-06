@@ -1,4 +1,5 @@
 import type { Node, NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
 import { Button } from "~/components/ui/button";
 import { Badge } from "~/components/ui/badge";
 import { PhoneIcon } from "lucide-react";
@@ -23,13 +24,23 @@ export const CustomNode = ({ data }: NodeProps<CustomNodeType>) => {
   const { title, description, tags, label, action, icon } = data.heading;
 
   return (
-    <div className="w-[288px] rounded-md bg-white pt-3 pb-4 text-black shadow-sm">
+    <div className="text-primary-text w-[288px] rounded-md bg-white pt-3 pb-4 shadow-sm">
+      {/* Target handle at the top */}
+      <Handle
+        type="target"
+        position={Position.Top}
+        className="h-3 w-3 border-2 border-white bg-blue-500"
+      />
+
       <div className="grid gap-4">
         <div>
           <div className="flex justify-between pr-4 pb-2 pl-[18px]">
             <CustomIcons variant={icon} />
-            <span className="self-center text-sm">{title}</span>
-            <Badge variant="secondary" className="self-center text-xs">
+            <span className="self-center text-sm font-normal">{title}</span>
+            <Badge
+              variant="secondary"
+              className="self-center rounded-sm bg-transparent py-1 text-[10px] font-normal"
+            >
               {label}
             </Badge>
           </div>
@@ -49,6 +60,13 @@ export const CustomNode = ({ data }: NodeProps<CustomNodeType>) => {
           <Badge>{action}</Badge>
         </div>
       </div>
+
+      {/* Source handle at the bottom */}
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        className="h-3 w-3 border-2 border-white bg-green-500"
+      />
     </div>
   );
 };
