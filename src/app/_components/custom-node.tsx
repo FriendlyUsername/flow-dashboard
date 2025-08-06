@@ -2,8 +2,6 @@ import type { Node, NodeProps } from "@xyflow/react";
 import { Handle, Position } from "@xyflow/react";
 import { Button } from "~/components/ui/button";
 import { Badge } from "~/components/ui/badge";
-import { PhoneIcon } from "lucide-react";
-import { Separator } from "~/components/ui/separator";
 import { CustomIcons, type CustomIconVariant } from "./custom-icons";
 import {
   BaseNode,

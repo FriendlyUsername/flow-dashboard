@@ -8,8 +8,6 @@ import {
   SidebarProvider,
   SideBarReOpenDesktop,
   SideBarReOpenMobile,
-  SidebarTrigger,
-  useSidebar,
 } from "~/components/ui/sidebar";
 
 // import data from "./data.json";
