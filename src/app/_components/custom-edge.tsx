@@ -8,7 +8,7 @@ import {
   useConnection,
 } from "@xyflow/react";
 import { Button } from "~/components/ui/button";
-import { MailIcon, MessageCircleIcon, PhoneIcon } from "lucide-react";
+import { CustomIcons } from "./custom-icons";
 
 export type CustomEdgeIconVariant = "message" | "phone" | "mail" | undefined;
 
@@ -56,7 +56,7 @@ const CustomEdge = ({
           <div className="bg-accent mx-auto flex max-w-fit justify-center">
             {data?.icons?.map((icon: CustomEdgeIconVariant) => (
               <Button key={icon} variant="ghost" size="icon" className="size-8">
-                <CustomEdgeIcons variant={icon} />
+                <CustomIcons variant={icon} />
               </Button>
             ))}
           </div>
@@ -64,21 +64,6 @@ const CustomEdge = ({
       </EdgeLabelRenderer>
     </>
   );
-};
-
-const CustomEdgeIcons = ({
-  variant,
-}: {
-  variant: "message" | "phone" | "mail" | undefined;
-}) => {
-  if (!variant) return null;
-  const IconViews = {
-    message: <MessageCircleIcon />,
-    phone: <PhoneIcon />,
-    mail: <MailIcon />,
-  };
-
-  return IconViews[variant];
 };
 
 export const CustomConnectionLine = ({

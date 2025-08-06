@@ -13,6 +13,8 @@ import {
 
 // import data from "./data.json";
 import { FlowApp } from "../_components/flow-app";
+import { ChevronLeft } from "lucide-react";
+import { Separator } from "~/components/ui/separator";
 
 export default function Page() {
   return (
@@ -27,9 +29,20 @@ export default function Page() {
       <AppSidebar variant="inset" />
 
       <SidebarInset>
-      <div className="bg-sidebar flex h-10 items-center justify-between shadow-none">
-        <SideBarReOpen />
-      </div>
+        <div className="bg-sidebar flex h-10 items-center justify-between shadow-none">
+          <div>
+            <SideBarReOpen />
+            <div className="flex">
+              <ChevronLeft />
+              <span>Flow</span>
+              <Separator
+                orientation="vertical"
+                className="mx-1 h-10 bg-black"
+              />
+              <div>Version 1.0 split A</div>
+            </div>
+          </div>
+        </div>
         <FlowApp />
       </SidebarInset>
     </SidebarProvider>

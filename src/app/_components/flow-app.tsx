@@ -65,7 +65,7 @@ const initialNodes: CustomNodeType[] = [
       heading: {
         title: "Customer name",
         description: "Ask the caller for their name",
-        icon: "thunder",
+        icon: "chat",
         label: "Default",
         tags: [],
         action: "Add_Name",
@@ -82,7 +82,7 @@ const initialNodes: CustomNodeType[] = [
         title: "Customer date of birth",
         description:
           "Ask the caller for date of birth once the name has been recieved.",
-        icon: "Chaticon",
+        icon: "chat",
         label: "Default",
         tags: ["Age"],
         action: "Add_DOB",
