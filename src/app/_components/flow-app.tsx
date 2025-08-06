@@ -144,7 +144,7 @@ export const FlowApp = () => {
         onEdgesChange={onEdgesChange}
         connectionLineComponent={CustomConnectionLine}
         onConnect={onConnect}
-        minZoom={1}
+        fitView
       >
         <Background variant={"dots" as BackgroundVariant} />
         <DevTools position="top-left" />

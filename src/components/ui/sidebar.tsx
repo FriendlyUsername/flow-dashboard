@@ -699,11 +699,18 @@ function SidebarMenuSubButton({
   );
 }
 
-const SideBarReOpen = () => {
+const SideBarReOpenMobile = () => {
+  const { openMobile } = useSidebar();
+  if (openMobile) return;
+
+  return <SidebarTrigger className="md:hidden" />;
+};
+
+const SideBarReOpenDesktop = () => {
   const { open } = useSidebar();
   if (open) return;
 
-  return <SidebarTrigger />;
+  return <SidebarTrigger className="hidden md:block" />;
 };
 
 export {
@@ -727,7 +734,8 @@ export {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarProvider,
-  SideBarReOpen,
+  SideBarReOpenMobile,
+  SideBarReOpenDesktop,
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,

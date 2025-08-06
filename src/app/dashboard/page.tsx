@@ -6,7 +6,8 @@ import { AppSidebar } from "~/components/app-sidebar";
 import {
   SidebarInset,
   SidebarProvider,
-  SideBarReOpen,
+  SideBarReOpenDesktop,
+  SideBarReOpenMobile,
   SidebarTrigger,
   useSidebar,
 } from "~/components/ui/sidebar";
@@ -20,6 +21,7 @@ import {
   Circle,
   RefreshCcw,
   Settings,
+  Menu,
 } from "lucide-react";
 import { Separator } from "~/components/ui/separator";
 import { Button } from "~/components/ui/button";
@@ -44,8 +46,38 @@ export default function Page() {
 
       <SidebarInset className="!mt-0">
         <div className="bg-sidebar flex h-10 items-center justify-between py-1.5 shadow-none">
-          <SideBarReOpen />
-          <div className="font-body-bold-small flex w-full justify-between self-center">
+          <SideBarReOpenDesktop />
+          <SideBarReOpenMobile />
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="ml-auto gap-1 !px-2 py-1.5 md:hidden"
+              >
+                <Menu />
+                <span>Mobile Dropdown</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <span>Flow</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <CloudLightning />
+                <span>Triggers</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Settings />
+                <span>Settings</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <RefreshCcw />
+                <span>Evaluate</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div className="font-body-bold-small hidden w-full justify-between self-center md:flex">
             <div className="flex gap-0">
               <Button
                 variant="outline"
