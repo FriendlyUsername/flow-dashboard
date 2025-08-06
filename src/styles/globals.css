@@ -17,6 +17,15 @@
   --font-body-medium-small--line-height: 16px;
   --font-body-medium-small--letter-spacing: -2%;
   --font-body-medium-small--font-weight: 450;
+  --font-body-bold-small: 14px;
+  --font-body-bold-small-family: "Inter";
+  --font-body-bold-small--line-height: 16px;
+  --font-body-bold-small--letter-spacing: -2%;
+  --font-body-bold-small--font-style: "Semi Bold";
+  --font-body-bold-small--font-weight: 570;
+  --shadow-dp-2-brand: 0px 0px 8px 0px #d9ae1345;
+  --shadow-dp-2-brand-2: 0px 0px 8px 0px #d9ae1354;
+  --shadow-dp-2-brand-3: 0px 0px 1px 1px #d9ae13;
 }
 
 @theme inline {
@@ -81,7 +90,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
+  --sidebar: #f3f1ee;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -152,4 +161,22 @@
     font-weight: var(--font-body-medium-small--font-weight);
     color: #161618;
   }
+  .font-body-bold-small {
+    font-size: var(--font-body-bold-small);
+    font-family: var(--font-body-bold-small-family);
+    line-height: var(--font-body-bold-small--line-height);
+    letter-spacing: var(--font-body-bold-small--letter-spacing);
+    font-weight: var(--font-body-bold-small--font-weight);
+    color: #161618;
+  }
+  .shadow-dp-2-brand {
+    box-shadow: var(--shadow-dp-2-brand);
+  }
+  .shadow-dp-2-brand-2 {
+    box-shadow: var(--shadow-dp-2-brand-2);
+  }
+  .shadow-dp-2-brand-3 {
+    box-shadow: var(--shadow-dp-2-brand-3);
+  }
 }
+/* #F3F1EE */

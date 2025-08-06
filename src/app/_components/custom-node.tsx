@@ -55,10 +55,12 @@ export const CustomNode = ({ data }: NodeProps<CustomNodeType>) => {
       />
 
       <BaseNodeHeader>
-        <Button variant="outline" className="size-6 bg-[#ECF7EF]">
-          <CustomIcons variant={icon} className="text-[#129438]" />
-        </Button>
-        <span className="self-center">{title}</span>
+        <div className="flex flex-row gap-2">
+          <Button variant="outline" className="size-6 bg-[#ECF7EF]">
+            <CustomIcons variant={icon} className="text-[#129438]" />
+          </Button>
+          <span className="self-center">{title}</span>
+        </div>
         <Badge
           variant="secondary"
           className="self-center rounded-sm bg-transparent py-1 text-[10px] font-normal"

@@ -9,7 +9,7 @@ export const BaseNode = forwardRef<
     ref={ref}
     className={cn(
       "bg-card text-card-foreground relative w-72 rounded-md border",
-      "hover:ring-1",
+      "hover:shadow-dp-2-brand-2",
       // React Flow displays node elements inside of a `NodeWrapper` component,
       // which compiles down to a div with the class `react-flow__node`.
       // When a node is selected, the class `selected` is added to the
