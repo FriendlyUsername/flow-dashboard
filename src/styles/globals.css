@@ -7,6 +7,16 @@
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-body-p-xs: 12px;
+  --font-body-p-xs-family: "Inter";
+  --font-body-p-xs--line-height: 155%;
+  --font-body-p-xs--letter-spacing: -4%;
+  --font-body-p-xs--font-weight: 480;
+  --font-body-medium-small: 14px;
+  --font-body-medium-small-family: "Inter";
+  --font-body-medium-small--line-height: 16px;
+  --font-body-medium-small--letter-spacing: -2%;
+  --font-body-medium-small--font-weight: 450;
 }
 
 @theme inline {
@@ -123,5 +133,23 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .font-body-p-xs {
+    font-size: var(--font-body-p-xs);
+    font-family: var(--font-body-p-xs-family);
+    line-height: var(--font-body-p-xs--line-height);
+    letter-spacing: var(--font-body-p-xs--letter-spacing);
+    font-weight: var(--font-body-p-xs--font-weight);
+  }
+  .font-body-medium-small {
+    font-size: var(--font-body-medium-small);
+    font-family: var(--font-body-medium-small-family);
+    line-height: var(--font-body-medium-small--line-height);
+    letter-spacing: var(--font-body-medium-small--letter-spacing);
+    font-weight: var(--font-body-medium-small--font-weight);
+    color: #161618;
   }
 }

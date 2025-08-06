@@ -35,16 +35,15 @@ const CustomEdge = ({
     targetY,
     targetPosition,
   });
-  console.log("data", data);
+
+  const transform = `translate(${labelX}px,${labelY}px) translate(-50%, -50%)`;
 
   return (
     <>
       <BaseEdge id={id} path={edgePath} />
       <EdgeLabelRenderer>
         <div
-          style={{
-            transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-          }}
+          style={{ transform }}
           className="edge-label-renderer__custom-edge nodrag nopan flex max-h-fit max-w-fit flex-col gap-1"
         >
           <div className="bg-accent">

@@ -19,7 +19,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={`${inter.variable} font-sans`}>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>

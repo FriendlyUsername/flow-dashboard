@@ -1,33 +1,28 @@
 "use client";
+
 import { useState, useCallback } from "react";
 import {
   ReactFlow,
   applyNodeChanges,
   applyEdgeChanges,
   addEdge,
-  type NodeChange,
   type EdgeChange,
   type Connection,
   type EdgeTypes,
-  useStore,
-  type Edge,
   type OnNodesChange,
+  Background,
+  type BackgroundVariant,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import CustomEdge, {
-  CustomConnectionLine,
-  type CustomEdgeIconVariant,
-} from "./custom-edge";
-import { PhoneIcon, Bug, X } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { Badge } from "~/components/ui/badge";
+import CustomEdge, { CustomConnectionLine } from "./custom-edge";
 import { CustomNode, type CustomNodeType } from "./custom-node";
-const MAX_NODE_HEIGHT = 400;
+import { DevTools } from "~/components/devtools";
+const MAX_NODE_HEIGHT = 200;
 
 const initialNodes: CustomNodeType[] = [
   {
     id: "n1",
-    position: { x: 200, y: 0 },
+    position: { x: 400, y: -MAX_NODE_HEIGHT },
     type: "custom",
     data: {
       heading: {
@@ -72,7 +67,6 @@ const initialNodes: CustomNodeType[] = [
       },
     },
   },
-
   {
     id: "n4",
     position: { x: 800, y: MAX_NODE_HEIGHT * 2 },
@@ -97,9 +91,18 @@ const initialEdges: CustomEdge[] = [
     source: "n1",
     target: "n2",
     sourceHandle: null,
-    targetHandle: null,
+    targetHandle: "right",
     type: "custom",
-    data: { label: "Edge 1", icons: ["mail", "message", "phone"] },
+    data: { label: "Is not available", icons: ["mail", "message", "phone"] },
+  },
+  {
+    id: "n1-n3",
+    source: "n1",
+    target: "n3",
+    sourceHandle: null,
+    targetHandle: "left",
+    type: "custom",
+    data: { label: "Is available", icons: ["mail", "message", "phone"] },
   },
 ];
 
@@ -129,13 +132,9 @@ export const FlowApp = () => {
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
   );
-  console.log("State", { nodes, edges });
 
   return (
-    <div
-      style={{ height: "100vh" }}
-      className="relative shadow-sm lg:w-[calc(100vw-var(--sidebar-width))]"
-    >
+    <div style={{ height: "100%" }} className="shadow-sm">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -145,78 +144,11 @@ export const FlowApp = () => {
         onEdgesChange={onEdgesChange}
         connectionLineComponent={CustomConnectionLine}
         onConnect={onConnect}
-        fitView
-      />
-      <DebugPanel nodes={nodes} edges={edges} edgeTypes={edgeTypes} />
-    </div>
-  );
-};
-
-const DebugPanel = ({
-  nodes,
-  edges,
-  edgeTypes,
-}: {
-  nodes: typeof initialNodes;
-  edges: typeof initialEdges;
-  edgeTypes: EdgeTypes;
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const togglePanel = () => setIsVisible(!isVisible);
-  if (!isVisible)
-    return (
-      <div className="absolute top-4 left-4 z-10">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={togglePanel}
-          className="h-8 w-8 border-gray-200 bg-white/90 p-0 backdrop-blur-sm hover:bg-white"
-        >
-          <Bug className="h-4 w-4" />
-        </Button>
-      </div>
-    );
-
-  return (
-    <div className="absolute top-4 left-4 z-10">
-      <div className="max-w-sm rounded-lg border border-gray-200 bg-white/90 p-4 shadow-lg backdrop-blur-sm">
-        <div className="mb-2 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-800">Debug Info</h3>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={togglePanel}
-            className="h-6 w-6 p-0 hover:bg-gray-100"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-        <div className="space-y-1 font-mono text-xs break-words text-gray-600">
-          <div>
-            <span className="font-medium text-gray-800">Nodes:</span>{" "}
-            <span className="text-blue-600">
-              [
-              {nodes.map(
-                (node, index) => `node${index}: ${JSON.stringify(node)} + `,
-              )}
-              ]
-            </span>
-          </div>
-          <div>
-            <span className="font-medium text-gray-800">Edges:</span>{" "}
-            <span className="text-green-600">
-              [{edges.map((edge) => edge.id).join(", ")}]
-            </span>
-          </div>
-          <div>
-            <span className="font-medium text-gray-800">Edge Types:</span>{" "}
-            <span className="text-purple-600">
-              [{Object.keys(edgeTypes).join(", ")}]
-            </span>
-          </div>
-        </div>
-      </div>
+        minZoom={1}
+      >
+        <Background variant={"dots" as BackgroundVariant} />
+        <DevTools position="top-left" />
+      </ReactFlow>
     </div>
   );
 };
