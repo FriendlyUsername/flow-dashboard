@@ -133,8 +133,8 @@ export const FlowApp = () => {
 
   return (
     <div
-      style={{ width: "calc(100vw - var(--sidebar-width))", height: "100vh" }}
-      className="relative shadow-sm"
+      style={{ height: "100vh" }}
+      className="relative shadow-sm lg:w-[calc(100vw-var(--sidebar-width))]"
     >
       <ReactFlow
         nodes={nodes}
