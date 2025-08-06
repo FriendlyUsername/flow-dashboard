@@ -43,7 +43,7 @@ export default function Page() {
       <AppSidebar variant="inset" />
 
       <SidebarInset className="!mt-0">
-        <div className="bg-sidebar flex h-10 items-center justify-between py-1.5 pr-2 shadow-none">
+        <div className="bg-sidebar flex h-10 items-center justify-between py-1.5 shadow-none">
           <SideBarReOpen />
           <div className="font-body-bold-small flex w-full justify-between self-center">
             <div className="flex gap-0">
