@@ -31,7 +31,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "~/components/ui/sidebar";
+import { Textarea } from "./ui/textarea";
 
 const data = {
   user: {
@@ -162,20 +164,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">Nimbus</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <div className="flex items-center justify-between">
+          <div>Chat</div>
+          <SidebarTrigger />
+        </div>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <SideBarChatFooter />
       </SidebarFooter>
     </Sidebar>
   );
 }
+
+const SideBarChatFooter = () => {
+  return (
+    <div>
+      <Textarea placeholder="Ask Nimbus... " />
+    </div>
+  );
+};

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
+import { ChevronRight, PanelLeftIcon, PanelRightIcon } from "lucide-react";
 
 import { useIsMobile } from "~/hooks/use-mobile";
 import { cn } from "~/lib/utils";
@@ -24,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { IconChevronLeft } from "@tabler/icons-react";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -258,13 +259,13 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, open } = useSidebar();
 
   return (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
-      variant="ghost"
+      variant="outline"
       size="icon"
       className={cn("size-7", className)}
       onClick={(event) => {
@@ -273,7 +274,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      {open ? <IconChevronLeft /> : <ChevronRight />}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );
@@ -310,7 +311,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       data-slot="sidebar-inset"
       className={cn(
         "bg-background relative flex w-full flex-1 flex-col",
-        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
         className,
       )}
       {...props}
@@ -698,6 +699,13 @@ function SidebarMenuSubButton({
   );
 }
 
+const SideBarReOpen = () => {
+  const { open } = useSidebar();
+  if (open) return;
+
+  return <SidebarTrigger />;
+};
+
 export {
   Sidebar,
   SidebarContent,
@@ -719,6 +727,7 @@ export {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarProvider,
+  SideBarReOpen,
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,

@@ -3,7 +3,13 @@ import { AppSidebar } from "~/components/app-sidebar";
 // import { DataTable } from "~/components/data-table";
 // import { SectionCards } from "~/components/section-cards";
 // import { SiteHeader } from "~/components/site-header";
-import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SideBarReOpen,
+  SidebarTrigger,
+  useSidebar,
+} from "~/components/ui/sidebar";
 
 // import data from "./data.json";
 import { FlowApp } from "../_components/flow-app";
@@ -19,7 +25,11 @@ export default function Page() {
       }
     >
       <AppSidebar variant="inset" />
+
       <SidebarInset>
+      <div className="bg-sidebar flex h-10 items-center justify-between shadow-none">
+        <SideBarReOpen />
+      </div>
         <FlowApp />
       </SidebarInset>
     </SidebarProvider>
