@@ -22,6 +22,8 @@ import {
 } from "@xyflow/react";
 
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
+import { Button } from "~/components/ui/button";
+import { X, Bug } from "lucide-react";
 
 export const ViewportLogger = () => {
   const viewport = useStore(
@@ -205,11 +207,49 @@ type Tool = {
 type DevToolsToggleProps = {
   tools: Tool[];
   position: PanelPosition;
+  isVisible: boolean;
+  onToggleVisibility: () => void;
 };
 
-const DevToolsToggle = ({ tools, position }: DevToolsToggleProps) => {
+const DevToolsToggle = ({
+  tools,
+  position,
+  isVisible,
+  onToggleVisibility,
+}: DevToolsToggleProps) => {
+  if (!isVisible) {
+    return (
+      <Panel
+        position={position}
+        className="bg-card rounded border p-1 shadow-sm"
+      >
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onToggleVisibility}
+          className="h-8 w-8 p-0"
+          title="Open DevTools"
+        >
+          <Bug className="h-4 w-4" />
+        </Button>
+      </Panel>
+    );
+  }
+
   return (
-    <Panel position={position} className="bg-card rounded border p-1 shadow-sm">
+    <Panel position={position} className="bg-card rounded border p-3 shadow-sm">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="text-sm font-medium">DevTools</h3>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onToggleVisibility}
+          className="h-6 w-6 p-0"
+          title="Close DevTools"
+        >
+          <X className="h-4 w-4" />
+        </Button>
+      </div>
       <ToggleGroup type="multiple">
         {tools.map(({ active, setActive, label, value }) => (
           <ToggleGroupItem
@@ -232,6 +272,7 @@ type DevToolsProps = {
 };
 
 export const DevTools = ({ position }: DevToolsProps) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [nodeInspectorActive, setNodeInspectorActive] = useState(false);
   const [changeLoggerActive, setChangeLoggerActive] = useState(false);
   const [viewportLoggerActive, setViewportLoggerActive] = useState(false);
@@ -257,11 +298,20 @@ export const DevTools = ({ position }: DevToolsProps) => {
     },
   ];
 
+  const handleToggleVisibility = () => {
+    setIsVisible((prev) => !prev);
+  };
+
   return (
     <>
-      <DevToolsToggle tools={tools} position={position} />
+      <DevToolsToggle
+        tools={tools}
+        position={position}
+        isVisible={isVisible}
+        onToggleVisibility={handleToggleVisibility}
+      />
 
-      {changeLoggerActive && (
+      {isVisible && changeLoggerActive && (
         <Panel
           className="mt-20 max-h-[50%] overflow-y-auto rounded bg-white p-5 text-xs shadow-md"
           position="bottom-right"
@@ -270,9 +320,9 @@ export const DevTools = ({ position }: DevToolsProps) => {
         </Panel>
       )}
 
-      {nodeInspectorActive && <NodeInspector />}
+      {isVisible && nodeInspectorActive && <NodeInspector />}
 
-      {viewportLoggerActive && (
+      {isVisible && viewportLoggerActive && (
         <Panel position="bottom-left" className="text-secondary-foreground">
           <ViewportLogger />
         </Panel>
