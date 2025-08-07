@@ -1,28 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react";
-
-import { NavDocuments } from "~/components/nav-documents";
-import { NavMain } from "~/components/nav-main";
-import { NavSecondary } from "~/components/nav-secondary";
-import { NavUser } from "~/components/nav-user";
+import Image from "next/image";
 import {
   Sidebar,
   SidebarContent,
@@ -33,124 +12,8 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "~/components/ui/sidebar";
-import { Textarea } from "./ui/textarea";
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
-    },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
-  ],
-};
+import { LatestChat } from "~/app/_components/post";
+import { api } from "~/trpc/react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -163,30 +26,38 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Nimbus</span>
+                <Image src="/Vector.svg" alt="Nimbus" width={32} height={32} />
+                <span className="font-body-bold-small self-end">Nimbus</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <div className="flex items-center justify-between">
-          <div>Chat</div>
-          <SidebarTrigger />
+        <div className="flex flex-col justify-between">
+          <div className="flex items-center justify-between pb-3">
+            <span>Chat</span>
+            <SidebarTrigger />
+          </div>
+          <Chat />
         </div>
       </SidebarContent>
       <SidebarFooter>
-        <SideBarChatFooter />
+        <LatestChat />
       </SidebarFooter>
     </Sidebar>
   );
 }
-
-const SideBarChatFooter = () => {
+const Chat = () => {
+  const { data: chats, isLoading, isError } = api.chat.getAll.useQuery();
+  if (!chats) return null;
   return (
-    <div>
-      <Textarea placeholder="Ask Nimbus... " />
+    <div className="font-body-p-xs flex flex-col gap-6 pt-3">
+      {chats.map((chat) => (
+        <div key={chat.id}>{chat.name}</div>
+      ))}
+      {isLoading ? <div>Loading...</div> : null}
+      {isError && <div>Error</div>}
     </div>
   );
 };

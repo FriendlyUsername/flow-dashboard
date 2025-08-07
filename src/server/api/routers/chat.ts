@@ -10,11 +10,23 @@ interface Post {
 const posts: Post[] = [
   {
     id: 1,
-    name: "Hello World",
+    name: "Is there anything else I can help with?",
+  },
+  {
+    id: 2,
+    name: "I want the bot to ask for the customer's name and confirm it by spelling it back.",
+  },
+  {
+    id: 3,
+    name: "New node created Customer Name",
+  },
+  {
+    id: 4,
+    name: "Node intro to the call was updated with new questions",
   },
 ];
 
-export const postRouter = createTRPCRouter({
+export const chatRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input }) => {
@@ -28,7 +40,7 @@ export const postRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const post: Post = {
         id: posts.length + 1,
-        name: input.name,
+        name: `The answer to you question (${input.name}) is: hiring me is a great choice! `,
       };
       posts.push(post);
       return post;
@@ -36,5 +48,8 @@ export const postRouter = createTRPCRouter({
 
   getLatest: publicProcedure.query(() => {
     return posts.at(-1) ?? null;
+  }),
+  getAll: publicProcedure.query(() => {
+    return posts;
   }),
 });

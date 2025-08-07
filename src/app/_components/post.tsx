@@ -1,28 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { Textarea } from "~/components/ui/textarea";
 
 import { api } from "~/trpc/react";
 
-export function LatestPost() {
-  const [latestPost] = api.post.getLatest.useSuspenseQuery();
-
+export function LatestChat() {
   const utils = api.useUtils();
   const [name, setName] = useState("");
-  const createPost = api.post.create.useMutation({
+  const createPost = api.chat.create.useMutation({
     onSuccess: async () => {
-      await utils.post.invalidate();
+      await utils.chat.invalidate();
       setName("");
     },
   });
 
   return (
     <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -30,12 +24,10 @@ export function LatestPost() {
         }}
         className="flex flex-col gap-2"
       >
-        <input
-          type="text"
-          placeholder="Title"
+        <Textarea
+          placeholder="Ask Nimbus..."
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-white"
         />
         <button
           type="submit"
